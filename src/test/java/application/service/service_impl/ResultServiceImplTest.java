@@ -31,7 +31,6 @@ class ResultServiceImplTest {
 
         assertEquals(resultForCheck, returnedResult);
         Mockito.verify(resultRepository, Mockito.times(1)).findResultByResultAndUserAndTest(result, user, test);
-
     }
 
     @Test

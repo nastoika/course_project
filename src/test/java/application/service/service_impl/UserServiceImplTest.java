@@ -56,42 +56,9 @@ class UserServiceImplTest {
         UserService userService = new UserServiceImpl(userRepository, passwordEncoder);
 
         Mockito.when(userRepository.findUserByLogin(oldLogin)).thenReturn(user);
-        User returnedUser = userService.findUserByLogin(oldLogin);
         userService.updateLogin(oldLogin, newLogin);
 
         Mockito.verify(userRepository, Mockito.times(1)).save(Mockito.any(User.class));
-        assertEquals(newLogin, returnedUser.getLogin());
-    }
-
-    @Test
-    void checkCorrectPassword() {
-    }
-
-    @Test
-    void updatePassword() {
-    }
-
-    @Test
-    void changeUserStatusByLogin() {
-    }
-
-    @Test
-    void gelAllUsers() {
-    }
-
-    @Test
-    void findUserRating() {
-    }
-
-    @Test
-    void updateUser() {
-    }
-
-    @Test
-    void getUserRating() {
-    }
-
-    @Test
-    void checkLoginForExists() {
+        assertEquals(newLogin, user.getLogin());
     }
 }

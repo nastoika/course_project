@@ -27,18 +27,18 @@ class RoleServiceImplTest {
         Role returnedRole = roleService.findRoleByRoleNameAndSaveIfDoesntExists(roleName);
 
         Mockito.verify(roleRepository, Mockito.times(1)).findRoleByRoleName(roleName);
+        Mockito.verify(roleRepository, Mockito.never()).save(Mockito.any(Role.class));
         assertEquals(role, returnedRole);
     }
 
     @Test
     void findRoleByRoleNameAndSaveIfDoesntExistsTest2() {
         String roleName = "ADMIN";
-        Role role = null;
         Role roleForCheck = new Role();
         roleForCheck.setRoleName(roleName);
         RoleService roleService = new RoleServiceImpl(roleRepository);
 
-        Mockito.when(roleRepository.findRoleByRoleName(roleName)).thenReturn(role);
+        Mockito.when(roleRepository.findRoleByRoleName(roleName)).thenReturn(null);
         Role returnedRole = roleService.findRoleByRoleNameAndSaveIfDoesntExists(roleName);
 
         Mockito.verify(roleRepository, Mockito.times(1)).findRoleByRoleName(roleName);

@@ -1,5 +1,6 @@
 package application.service.service_impl;
 
+import application.entity.Role;
 import application.entity.Status;
 import application.repository.StatusRepository;
 import application.service.StatusService;
@@ -28,18 +29,18 @@ class StatusServiceImplTest {
         Status checkStatus = service.findStatusByStatusNameAndSaveIfDoesntExists(statusName);
 
         Mockito.verify(statusRepository, Mockito.times(1)).findStatusByStatusName(statusName);
+        Mockito.verify(statusRepository, Mockito.never()).save(Mockito.any(Status.class));
         Assertions.assertEquals(status, checkStatus);
     }
 
     @Test
     void findStatusByStatusNameAndSaveIfDoesntExistsTest() {
         String statusName = "ACTIVE";
-        Status status = null;
         Status statusForCheck = new Status();
         statusForCheck.setStatusName(statusName);
         StatusService service = new StatusServiceImpl(statusRepository);
 
-        Mockito.when(statusRepository.findStatusByStatusName(statusName)).thenReturn(status);
+        Mockito.when(statusRepository.findStatusByStatusName(statusName)).thenReturn(null);
         Status returnedStatus = service.findStatusByStatusNameAndSaveIfDoesntExists(statusName);
 
         Mockito.verify(statusRepository, Mockito.times(1)).findStatusByStatusName(statusName);
